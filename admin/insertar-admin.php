@@ -41,7 +41,7 @@ if(isset($_POST['agrear-admin'])) {
     die(json_encode($respuesta));
 }
 if(isset($_POST['login-admin'])){
-    $usuario = $_POST['admin'];
+    $usuario = $_POST['usuario'];
     $password = $_POST['password'];
 
     try {
@@ -54,16 +54,28 @@ if(isset($_POST['login-admin'])){
             $existe = $stnt=>fetch();
             if($existe) {
                 $respuesta = array (
-                    'respuesta' => 'si_existe'
+                    if(password_verify($password, $password_admin)){
+                        session_start();
+                        $_SESSION['usuario']= $usuario_admin;
+                        $_SESSION['nombre'] = $nombre_admin;
+                        $respuesta array (
+                            'respuesta' => 'exitoso',
+                            'usuario' => 'nombre_admin'
+                        );
+                    }else {
+                        $respuesta = array(
+                            'respuesta' =  'password_incorrecto'
+                        );
+                    }
                 )
-
-                
             }else {
                 $respuesta = array (
                     'respuesta' => 'no_existe'
                 )
             }
         }
+        $stnt->close();
+        $conn->close();
     }catch (Exception $e) {
         echo "Error:" . $e->getMessage();
     }

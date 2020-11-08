@@ -1,6 +1,6 @@
 <?php 
 include_once 'funciones/funciones.php';
-include_once 'funciones/sesion.php';
+include_once 'funciones/sesiones.php';
 include_once 'templates/header.php'; ?>
 
 <body class="hold-transition skin-blue fixed sidebar-mini">
