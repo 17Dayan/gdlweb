@@ -50,6 +50,20 @@ if(isset($_POST['login-admin'])){
         $stnt->bind_param("s", $usuario);
         $stnt->execute();
         $stnt->bind_result($id_admin, $usuario_admin, $nombre_admin, $password_admin);
+        if($stnt->affected_rows) {
+            $existe = $stnt=>fetch();
+            if($existe) {
+                $respuesta = array (
+                    'respuesta' => 'si_existe'
+                )
+
+                
+            }else {
+                $respuesta = array (
+                    'respuesta' => 'no_existe'
+                )
+            }
+        }
     }catch (Exception $e) {
         echo "Error:" . $e->getMessage();
     }
